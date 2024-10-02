@@ -68,9 +68,31 @@ counter *= 2
 counter -= 10
 counter /= 2
 
-let number = 120
-print(number.isMultiple(of: 3))
+let num = 120
+print(num.isMultiple(of: 3))
 print(120.isMultiple(of: 3))
+
+
+let number = 0.1 + 0.2
+print(number)
+
+let a = 1
+let b = 2.0
+let c = a + Int(b)
+
+let double1 = 3.1
+let double2 = 3131.3131
+let double3 = 3.0
+let int1 = 3
+
+var name1 = "Nicolas Cage"
+name1 = "John Travolta"
+
+var rating = 5.0
+rating *= 2
+
+
+
 
 
 
