@@ -109,3 +109,32 @@ actors2.insert("Nicolas Cage")
 actors2.insert("Samuel L Jackson")
 
 print(actors2)
+
+
+var selected = "Monday"
+selected = "Tuesday"
+selected = "January"
+selected = "Friday "
+
+enum Weekday {
+    case monday
+    case tuesday
+    case wednesday
+    case thursday
+    case friday
+}
+
+enum Weekend {
+    case saturday, sunday
+}
+
+var day = Weekday.monday
+day = Weekday.tuesday
+day = Weekday.friday
+
+var weekendDay = Weekend.saturday
+weekendDay = .sunday
+
+print(day)
+print(weekendDay)
+
