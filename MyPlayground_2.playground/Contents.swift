@@ -43,3 +43,8 @@ let number = 11
 let missionMessage = "Apollo \(number) landed on the moon."
 
 print("5 x 5 is \(5*5)")
+
+
+let temperature = 11.2
+
+print("Celsius: \(temperature)     Fahrenheit: \(((temperature*9)/5)+32)")
