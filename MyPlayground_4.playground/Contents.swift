@@ -35,4 +35,11 @@ username = "@twostraws"
 print(username)
 
 
+var myArray: [String] = ["blue","red","yellow","green","red"]
+
+print(myArray.count)
+
+print(Set(myArray).count)
+
+
 
