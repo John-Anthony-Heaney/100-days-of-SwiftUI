@@ -28,5 +28,35 @@ func printTimeTables(number: Int, end: Int) {
 printTimeTables(number: 5, end: 20)
 
 
+let root = sqrt(169)
+print(root)
+
+func rollDice() -> Int {
+    return Int.random(in: 1...6)
+}
+
+let result = rollDice()
+print(result)
 
 
+func sameLetters(first: String, second: String) -> Bool{
+    if first.sorted() == second.sorted() {
+        return true
+    }
+    else {
+        return false
+    }
+}
+
+func pythagoras(a: Double, b: Double) -> Double {
+    sqrt(a * a + b * b)
+}
+
+let c = pythagoras(a: 3, b: 4)
+
+print(c)
+
+
+func sayHello() {
+    return
+}
