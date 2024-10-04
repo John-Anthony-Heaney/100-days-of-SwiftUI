@@ -60,3 +60,18 @@ print(c)
 func sayHello() {
     return
 }
+
+
+
+
+func getUser() -> (firstName: String, lastName: String) {
+    ("Taylor","Swift")
+}
+
+let user = getUser()
+print("Name: \(user.firstName) \(user.lastName)")
+
+let (firstName, lastName) = getUser()
+print("Name: \(firstName) \(lastName)")
+
+
