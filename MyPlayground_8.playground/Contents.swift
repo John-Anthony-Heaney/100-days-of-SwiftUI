@@ -46,3 +46,27 @@ do {
     print("There was an error: \(error.localizedDescription)")
 }
 
+enum SquareRootError: Error {
+    case outBounds, noRoot
+}
+
+func squareRoot(num : Int) throws -> Int {
+    if(num<1 || num > 10000){
+        throw SquareRootError.outBounds
+    } else {
+        for i in 1...100 {
+            if i*i == num {
+                return i
+            }
+        }
+        throw SquareRootError.noRoot
+    }
+}
+
+do {
+    try print(squareRoot(num: 0))
+} catch SquareRootError.noRoot {
+    print("There was no root")
+} catch SquareRootError.outBounds {
+    print("input was out of bounds")
+}
