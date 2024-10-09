@@ -50,15 +50,31 @@ func captainFirstSorted(name1: String, name2: String) -> Bool {
 //print(captainFirstTeam)
 
 
-let captainFirstTeam = team.sorted(by: { (name1: String, name2: String) -> Bool in
-    if name1 == "Suzanne" {
+let captainFirstTeam = team.sorted(by: {
+    if $0 == "Suzanne" {
         return true
-    } else if name2 == "Suzanne" {
+    } else if $1 == "Suzanne" {
         return false
     }
     
-    return name1 < name2
+    return $0 < $1
 })
+
+print(captainFirstTeam)
+
+
+let reverseTeam = team.sorted {return $0 > $1}
+
+let tOnly = team.filter {$0.hasPrefix("T")}
+print(tOnly)
+
+let uppercaseTeam = team.map { $0.uppercased()}
+print(uppercaseTeam)
+
+
+
+
+
 
 
 
