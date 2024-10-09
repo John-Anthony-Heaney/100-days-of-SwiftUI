@@ -114,9 +114,24 @@ doImportantWork {
 }
 
 
+let luckyNumbers = [7,4,38,21,16,15,12,33,31,49]
 
 
 
+let evenOnly = luckyNumbers.filter {!$0.isMultiple(of: 2)}
+let sortedLN = evenOnly.sorted()
+print(sortedLN)
+
+let isLucky = { (number: Int) -> String in
+    "\(number) is a lucky number"
+}
 
 
+func onePerLine (array: [Int], stringMapper: (Int) -> String){
+    for i in 1..<array.count{
+        print(stringMapper(array[i]))
+    }
+}
+
+onePerLine(array: sortedLN, stringMapper: isLucky)
 
