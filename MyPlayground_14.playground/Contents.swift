@@ -37,3 +37,28 @@ if let unwrappedNumber = number {
     print(square(number: unwrappedNumber))
 }
 
+
+func printSquare(of number: Int?) {
+    guard let number = number else {
+        print("Missing input")
+        return
+    }
+    
+    print("\(number) x \(number) is \(number * number)")
+}
+
+var myVar: Int? = 3
+
+if let unwrapped = myVar {
+    //Run if myVar has a value inside
+    print("")
+}
+
+//guard let unwrapped = myVar else {
+    //Run if myVar doesn't have a value inside
+//        return
+//}
+
+
+
+
