@@ -123,3 +123,50 @@ var user = UserName()
 user.name = "Taylor"
 user = UserName()
 print(user.name)
+
+
+
+class Animal {
+    var legs: Int
+    
+    init(legs: Int) {
+        self.legs = legs
+    }
+    
+    func speak(call: String){
+        print("\(call) \(call) \(call)!!!")
+    }
+}
+
+class Dog: Animal {
+    
+    override func speak(call: String){
+        print("\(call) \(call) bark \(call)!!!")
+    }
+}
+
+class Corgi: Dog{}
+
+class Poodle: Dog{}
+
+class Cat: Animal {
+    var isTame: Bool
+    
+    init(isTame: Bool, legs: Int) {
+        self.isTame = isTame
+        super.init(legs: legs)
+    }
+    override func speak(call: String){
+        print("\(call) \(call) meow \(call)!!!")
+    }
+    
+}
+
+class Persian: Cat{}
+
+class Lion: Cat{}
+
+
+var nala = Lion(isTame: false, legs: 4)
+
+nala.speak(call: "roooara")
