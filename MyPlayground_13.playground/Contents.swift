@@ -158,3 +158,34 @@ struct Employee: Person {
 
 let taylor = Employee(name: "Taylor Swift")
 taylor.sayHello()
+
+
+
+protocol Building {
+    var rooms: Int { get }
+    var cost: Int { get }
+    var estateAgent: String { get }
+    func salesSum()
+}
+
+extension Building {
+    func salesSum() {
+        print("number of rooms:\(rooms), cost:\(cost), estate agent:\(estateAgent)")
+    }
+}
+
+struct House: Building {
+    let rooms: Int
+    let cost: Int
+    let estateAgent: String
+}
+
+struct Office: Building {
+    let rooms: Int
+    let cost: Int
+    let estateAgent: String
+}
+
+var whiteHouse = House(rooms: 24, cost: 3000000, estateAgent: "Trump")
+
+whiteHouse.salesSum()
