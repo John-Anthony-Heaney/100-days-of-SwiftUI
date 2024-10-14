@@ -115,3 +115,10 @@ if let user = try? getUser(id: 23) {
 let user = (try? getUser(id: 23)) ?? "Anonymous"
 print(user)
 
+
+let integers = [2,4,6,8,10]
+
+let randInt = integers.randomElement() ?? Int.random(in: 1...100)
+
+
+print(randInt)
