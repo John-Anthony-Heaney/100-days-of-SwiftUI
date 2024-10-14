@@ -55,3 +55,28 @@ struct Employee {
 
 
 
+
+struct Car {
+    let model: String
+    let numSeats: Int
+    var gear: Int
+    
+    mutating func up() {
+        if gear < 6 {gear += 1}
+        
+        print("Gear is now \(gear)")
+        
+    }
+    
+    mutating func down() {
+        if gear > 1 {gear -= 1}
+        print("Gear is now \(gear)")
+        
+    }
+}
+
+var a4 = Car(model: "Audi", numSeats: 4, gear: 1)
+
+a4.up()
+a4.up()
+a4.down()
