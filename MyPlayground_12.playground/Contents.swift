@@ -115,3 +115,11 @@ print("Array is clear!")
 
 
 
+class UserName {
+    var name = "Paul"
+}
+
+var user = UserName()
+user.name = "Taylor"
+user = UserName()
+print(user.name)
