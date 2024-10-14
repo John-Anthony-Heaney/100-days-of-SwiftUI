@@ -88,3 +88,11 @@ print(number1)
 
 
 
+let names = ["Arya", "Bran", "Robb", "Sansa"]
+let chosen = names.randomElement()?.uppercased() ?? "No one"
+print("Next in line: \(chosen)")
+
+
+var book1: Book? = nil
+let author1 = book1?.author?.first?.uppercased() ?? "A"
+print(author1)
