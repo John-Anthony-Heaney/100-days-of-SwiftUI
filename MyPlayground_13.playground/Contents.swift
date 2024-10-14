@@ -58,3 +58,17 @@ commute(distance: 50, using: bike)
 
 getTravelEstimates(using: [car, bike], distance: 150)
 
+
+
+
+
+func getRandomNumber() -> some Equatable {
+    Double.random(in: 1...6)
+}
+
+func getRandomBool() -> some Equatable {
+    Bool.random()
+}
+
+print(getRandomNumber() == getRandomNumber())
+
