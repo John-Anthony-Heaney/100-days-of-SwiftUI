@@ -13,12 +13,17 @@ struct ContentView: View {
       Text("Hello world")
     }
     
-    func testBundles() {
-        if let fileURL = Bundle.main.url(forResource: "somefile", withExtension: "txt") {
-            if let fileContents = try? String(contentsOf: fileURL) {
-                
-            }
-        }
+    func testString() {
+        let word = "Swift"
+        let checker = UITextChecker()
+        
+        
+        let range = NSRange(location: 0, length: word.utf16.count)
+        let missspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
+        
+        let allGood = missspelledRange.location == NSNotFound
+        
+        
     }
 }
 
