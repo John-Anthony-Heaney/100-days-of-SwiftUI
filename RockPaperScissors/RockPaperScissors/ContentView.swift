@@ -20,12 +20,22 @@ struct ContentView: View {
             Text("\(moves[moveNum])")
             Text("\(outcomes[outcomeNum])")
             Text("Current Score: \(score)")
+            Text("moveNum: \(moveNum)")
+            Text("outcomeNum: \(outcomeNum)")
             
             
             HStack {
                 ForEach(0..<3) { move in
                     Button {
-                        if (move+(1*(-1*outcomeNum)))%3 == moveNum {
+                        var mech = 0
+                        if move-1+(outcomeNum * 2) == -1 {
+                            mech = 2
+                        } else {
+                            mech = move-1+(outcomeNum * 2)
+                        }
+                        
+                        
+                        if mech%3 == moveNum {
                             score += 1
                         }
                         moveNum = Int.random(in: 0...2)
