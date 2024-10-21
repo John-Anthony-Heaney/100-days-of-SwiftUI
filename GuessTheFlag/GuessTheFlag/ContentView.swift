@@ -39,9 +39,11 @@ struct ContentView: View {
     
     @State private var rotationAngles = [0.0, 0.0, 0.0]
     
+    @State private var zRotationAngles = [0.0, 0.0, 0.0]
+    
     @State private var selectedFlag: Int? = nil
     
-    @State private var isFaded = false
+    @State private var fadedFlag = [false, false, false]
    
     var body: some View {
         ZStack {
@@ -73,22 +75,34 @@ struct ContentView: View {
                             withAnimation(.easeInOut(duration: 1.0)) {
                                 self.rotationAngles[number] += 360
                                 self.selectedFlag = number
-                                self.isFaded.toggle()
+                               
+                                for i in 0..<3 {
+                                    if i != number {
+                                        self.fadedFlag[i] = true
+                                        self.zRotationAngles[i] += 360
+                                    }
+                                }
                             }
                             flagTapped(number)
                             
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                withAnimation(.easeInOut(duration: 1.0)) {
+                                    self.fadedFlag = [false, false, false]
+                                    self.zRotationAngles = [0.0, 0.0, 0.0]
+                                }
+                            }
 
                             
                         }) {
                             
                                 FlagImage(imageName:countries[number])
                                     .frame(width: 100, height: 100)
-                                    .opacity(isFaded ? 0.25 : 1.0)
+                                    .opacity(fadedFlag[number] ? 0.25 : 1.0)
                                     .rotation3DEffect(
                                         .degrees(rotationAngles[number]),
                                         axis: (x: 0, y: 1, z: 0)
                                     )
-                                
+                                    .rotationEffect(.degrees(fadedFlag[number] ? zRotationAngles[number] : 0), anchor: .center)
                             
 
                             
@@ -145,11 +159,15 @@ struct ContentView: View {
     func askQuestion () {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
+        selectedFlag = nil
+        rotationAngles = [0.0, 0.0, 0.0]
+        zRotationAngles = [0.0, 0.0, 0.0]
     }
     
     func restart () {
         score = 0
         questionsRemaining = 8
+        askQuestion()
     }
    
 }
