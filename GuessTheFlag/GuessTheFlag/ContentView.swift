@@ -36,6 +36,12 @@ struct ContentView: View {
     @State private var score = 0
     
     @State private var questionsRemaining = 8
+    
+    @State private var rotationAngles = [0.0, 0.0, 0.0]
+    
+    @State private var selectedFlag: Int? = nil
+    
+    @State private var isFaded = false
    
     var body: some View {
         ZStack {
@@ -63,10 +69,29 @@ struct ContentView: View {
                     }
                     
                     ForEach(0..<3) { number in
-                        Button {
+                        Button(action: {
+                            withAnimation(.easeInOut(duration: 1.0)) {
+                                self.rotationAngles[number] += 360
+                                self.selectedFlag = number
+                                self.isFaded.toggle()
+                            }
                             flagTapped(number)
-                        } label: {
-                            FlagImage(imageName:countries[number])
+                            
+
+                            
+                        }) {
+                            
+                                FlagImage(imageName:countries[number])
+                                    .frame(width: 100, height: 100)
+                                    .opacity(isFaded ? 0.25 : 1.0)
+                                    .rotation3DEffect(
+                                        .degrees(rotationAngles[number]),
+                                        axis: (x: 0, y: 1, z: 0)
+                                    )
+                                
+                            
+
+                            
                         }
                     }
                 }
