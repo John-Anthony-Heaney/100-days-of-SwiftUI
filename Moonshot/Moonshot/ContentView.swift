@@ -10,6 +10,9 @@ import SwiftUI
 
 
 struct ContentView: View {
+    
+    @State private var showingGrid = true
+    
     let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
     let missions: [Mission] = Bundle.main.decode("missions.json")
     
@@ -19,11 +22,29 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            //GridLayout(astronauts: astronauts, missions: missions)
-            ListLayout(astronauts: astronauts, missions: missions)
-            .navigationTitle("Moonshot")
-            .background(.darkBackground)
-            .preferredColorScheme(.dark)
+            VStack {
+                
+                Button(action: {
+                    showingGrid.toggle()
+                }) {
+                    Text(showingGrid ? "Switch to List View" : "Switch to Grid View")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+                
+                Group {
+                    if showingGrid {
+                        GridLayout(astronauts: astronauts, missions: missions)
+                    } else {
+                        ListLayout(astronauts: astronauts, missions: missions)
+                    }
+                }
+                .navigationTitle("Moonshot")
+                .background(.darkBackground)
+                .preferredColorScheme(.dark)
+            }
         }
     }
 }
