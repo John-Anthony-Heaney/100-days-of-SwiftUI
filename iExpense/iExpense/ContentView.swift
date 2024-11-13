@@ -50,72 +50,61 @@ class Expenses {
     }
 }
 
+
 struct ContentView: View {
     @State private var expenses = Expenses()
-    
     @State private var isAddingExpense = false
-    
+    @State private var titleText = "iExpense"  // Editable title text
+
     var body: some View {
         NavigationStack {
-            HStack {
+            VStack {
+                TextField("Enter title", text: $titleText)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.center)
+                    .padding()
                 
-               
-                
-                List {
-                    ForEach(expenses.personalItems) { item in
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(item.name)
-                                    .font(.headline)
-                                
-                                Text(item.type)
+                HStack {
+                    List {
+                        ForEach(expenses.personalItems) { item in
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(item.name)
+                                        .font(.headline)
+                                    Text(item.type)
+                                }
+                                Spacer()
+                                Text(item.amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                             }
-                            
-                            Spacer()
-                            
-                            Text(item.amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
-                            
+                            .padding()
+                            .background(item.amount < 10 ? Color.green : (item.amount <= 100 ? Color.yellow : Color.red))
+                            .cornerRadius(8)
+                            .shadow(radius: 2)
                         }
-                        .padding()
-                        .background(item.amount < 10 ? Color.green : (item.amount <= 100 ? Color.yellow: Color.red))
-                        .cornerRadius(8)
-                        .shadow(radius: 2)
+                        .onDelete(perform: removePersonalItems)
                     }
-                    .onDelete(perform: removePersonalItems)
-                    
-                    
-                    
-                    
-                }
-                
-                List {
-                    ForEach(expenses.businessItems) { item in
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(item.name)
-                                    .font(.headline)
-                                
-                                Text(item.type)
+
+                    List {
+                        ForEach(expenses.businessItems) { item in
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(item.name)
+                                        .font(.headline)
+                                    Text(item.type)
+                                }
+                                Spacer()
+                                Text(item.amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                             }
-                            
-                            Spacer()
-                            
-                            Text(item.amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
-                            
+                            .padding()
+                            .background(item.amount < 10 ? Color.green : (item.amount <= 100 ? Color.yellow : Color.red))
+                            .cornerRadius(8)
+                            .shadow(radius: 2)
                         }
-                        .padding()
-                        .background(item.amount < 10 ? Color.green : (item.amount <= 100 ? Color.yellow: Color.red))
-                        .cornerRadius(8)
-                        .shadow(radius: 2)
+                        .onDelete(perform: removeBusinessItems)
                     }
-                    .onDelete(perform: removeBusinessItems)
-                    
-                    
-                    
                 }
-                
             }
-            .navigationTitle("iExpense")
             .toolbar {
                 NavigationLink(destination: AddView(expenses: expenses), isActive: $isAddingExpense) {
                     Button(action: {
@@ -127,11 +116,11 @@ struct ContentView: View {
             }
         }
     }
-    
+
     func removePersonalItems(at offsets: IndexSet) {
         expenses.personalItems.remove(atOffsets: offsets)
     }
-    
+
     func removeBusinessItems(at offsets: IndexSet) {
         expenses.businessItems.remove(atOffsets: offsets)
     }
