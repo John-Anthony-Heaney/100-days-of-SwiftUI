@@ -21,7 +21,9 @@ struct ContentView: View {
             VStack {
                 List {
                     ForEach(activities.activities) { activity in
-                        Text(activity.title) // Display activity titles
+                        NavigationLink(destination: ActivityDetailView(activity: activity)) {
+                            Text(activity.title) // Display activity titles
+                        }
                     }
                     .onDelete(perform: deleteActivity) // Swipe-to-delete functionality
                 }
@@ -61,6 +63,20 @@ struct AddActivityView: View {
             .disabled(title.isEmpty || description.isEmpty)
         }
         .navigationTitle("Add Activity")
+    }
+}
+
+struct ActivityDetailView: View {
+    let activity: Activity
+    
+    var body: some View {
+        VStack {
+            Text(activity.description)
+                .padding()
+            
+            Spacer()
+        }
+        .navigationTitle(activity.title) // Set the title to the activity's title
     }
 }
 
