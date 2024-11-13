@@ -8,15 +8,12 @@
 import SwiftUI
 
 struct ListLayout: View {
-    
-    let astronauts: [String:Astronaut]
+    let astronauts: [String: Astronaut]
     let missions: [Mission]
     
     var body: some View {
         List(missions) { mission in
-            NavigationLink {
-                MissionView(mission: mission, astronauts: astronauts)
-            } label: {
+            NavigationLink(value: mission) {  // NavigationLink with value
                 VStack(alignment: .leading) {
                     Image(mission.image)
                         .resizable()
@@ -45,12 +42,4 @@ struct ListLayout: View {
             }
         }
     }
-}
-
-#Preview {
-    let missions: [Mission] = Bundle.main.decode("Missions.json")
-    let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
-    
-    return ListLayout(astronauts: astronauts, missions: missions)
-        .preferredColorScheme(.dark)
 }

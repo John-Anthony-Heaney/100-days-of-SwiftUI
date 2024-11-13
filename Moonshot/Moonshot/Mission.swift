@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Mission: Codable, Identifiable {
+struct Mission: Codable, Identifiable, Hashable, Equatable {
     
-    struct CrewRole: Codable {
+    struct CrewRole: Codable, Hashable, Equatable { // Add Hashable and Equatable conformance
         let name: String
         let role: String
     }
@@ -31,3 +31,4 @@ struct Mission: Codable, Identifiable {
         launchDate?.formatted(date: .abbreviated, time: .omitted) ?? "N/A"
     }
 }
+
