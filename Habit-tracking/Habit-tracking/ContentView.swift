@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  Habit-tracking
-//
-//  Created by John Anthony Heaney on 13/11/2024.
-//
-
 import SwiftUI
 
 struct Activity: Identifiable, Codable {
@@ -26,12 +19,14 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                List(activities.activities) { activity in
-                    Text(activity.title) // Display activity titles
+                List {
+                    ForEach(activities.activities) { activity in
+                        Text(activity.title) // Display activity titles
+                    }
+                    .onDelete(perform: deleteActivity) // Swipe-to-delete functionality
                 }
                 .navigationTitle("Activities")
                 .toolbar {
-                    // Move the toolbar here to be inside the NavigationStack
                     ToolbarItem(placement: .navigationBarTrailing) {
                         NavigationLink("Add", destination: AddActivityView(activities: $activities.activities))
                             .foregroundColor(.blue)
@@ -39,6 +34,11 @@ struct ContentView: View {
                 }
             }
         }
+    }
+    
+    // Function to handle deletion
+    private func deleteActivity(at offsets: IndexSet) {
+        activities.activities.remove(atOffsets: offsets)
     }
 }
 
