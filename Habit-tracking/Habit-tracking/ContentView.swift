@@ -8,7 +8,30 @@ struct Activity: Identifiable, Codable {
 }
 
 class Activities: ObservableObject {
-    @Published var activities = [Activity]()
+    @Published var activities = [Activity]() {
+        didSet {
+            saveActivities()
+        }
+    }
+    
+    init() {
+        loadActivities()
+    }
+    
+    // Save activities to UserDefaults
+    func saveActivities() {
+        if let encoded = try? JSONEncoder().encode(activities) {
+            UserDefaults.standard.set(encoded, forKey: "activities")
+        }
+    }
+    
+    // Load activities from UserDefaults
+    func loadActivities() {
+        if let savedData = UserDefaults.standard.data(forKey: "activities"),
+           let decodedActivities = try? JSONDecoder().decode([Activity].self, from: savedData) {
+            activities = decodedActivities
+        }
+    }
 }
 
 struct ContentView: View {
@@ -64,7 +87,7 @@ struct ActivityRow: View {
                     .clipShape(Circle())
                     .padding(5)
             }
-            .buttonStyle(.plain) // Prevents the button from being part of the NavigationLink
+            .buttonStyle(.plain)
             
             Button(action: {
                 if activity.count > 0 {
@@ -78,7 +101,7 @@ struct ActivityRow: View {
                     .clipShape(Circle())
                     .padding(5)
             }
-            .buttonStyle(.plain) // Prevents the button from being part of the NavigationLink
+            .buttonStyle(.plain)
         }
         .padding(.vertical)
         .background(Color.gray.opacity(0.1))
