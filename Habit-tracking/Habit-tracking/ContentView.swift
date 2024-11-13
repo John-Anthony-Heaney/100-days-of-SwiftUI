@@ -7,25 +7,22 @@ struct Activity: Identifiable, Codable {
     var count: Int
 }
 
-@Observable
-class Activities {
-    var activities = [Activity]()
+class Activities: ObservableObject {
+    @Published var activities = [Activity]()
 }
 
 struct ContentView: View {
     
-    @State private var activities = Activities()
+    @StateObject private var activities = Activities()
     
     var body: some View {
         NavigationStack {
             VStack {
                 List {
-                    ForEach(activities.activities) { activity in
-                        NavigationLink(destination: ActivityDetailView(activity: activity)) {
-                            Text(activity.title) // Display activity titles
-                        }
+                    ForEach($activities.activities) { $activity in
+                        ActivityRow(activity: $activity)
                     }
-                    .onDelete(perform: deleteActivity) // Swipe-to-delete functionality
+                    .onDelete(perform: deleteActivity)
                 }
                 .navigationTitle("Activities")
                 .toolbar {
@@ -38,9 +35,57 @@ struct ContentView: View {
         }
     }
     
-    // Function to handle deletion
     private func deleteActivity(at offsets: IndexSet) {
         activities.activities.remove(atOffsets: offsets)
+    }
+}
+
+struct ActivityRow: View {
+    @Binding var activity: Activity
+
+    var body: some View {
+        HStack {
+            Text(activity.title)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Spacer()
+            
+            Text("\(activity.count)")
+                .font(.title3)
+                .frame(width: 50)
+            
+            Button(action: {
+                activity.count += 1
+            }) {
+                Text("+")
+                    .frame(width: 30, height: 30)
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .clipShape(Circle())
+                    .padding(5)
+            }
+            .buttonStyle(.plain) // Prevents the button from being part of the NavigationLink
+            
+            Button(action: {
+                if activity.count > 0 {
+                    activity.count -= 1
+                }
+            }) {
+                Text("-")
+                    .frame(width: 30, height: 30)
+                    .background(Color.red)
+                    .foregroundColor(.white)
+                    .clipShape(Circle())
+                    .padding(5)
+            }
+            .buttonStyle(.plain) // Prevents the button from being part of the NavigationLink
+        }
+        .padding(.vertical)
+        .background(Color.gray.opacity(0.1))
+        .cornerRadius(8)
+        
+        NavigationLink("Description", destination: ActivityDetailView(activity: activity))
+            .padding(.vertical)
     }
 }
 
@@ -76,7 +121,7 @@ struct ActivityDetailView: View {
             
             Spacer()
         }
-        .navigationTitle(activity.title) // Set the title to the activity's title
+        .navigationTitle(activity.title)
     }
 }
 
