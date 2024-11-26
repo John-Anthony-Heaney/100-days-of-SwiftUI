@@ -1,15 +1,8 @@
-//
-//  AddressView.swift
-//  CupcakeCorner
-//
-//  Created by John Anthony Heaney on 15/11/2024.
-//
-
 import SwiftUI
 
 struct AddressView: View {
-    @Bindable var order: Order
-    
+    @StateObject private var order = Order.loadFromUserDefault() // Load the order with saved data
+
     var body: some View {
         Form {
             Section {
@@ -18,7 +11,7 @@ struct AddressView: View {
                 TextField("City", text: $order.city)
                 TextField("Zip", text: $order.zip)
             }
-            
+
             Section {
                 NavigationLink("Check out") {
                     CheckoutView(order: order)
@@ -26,9 +19,13 @@ struct AddressView: View {
             }
             .disabled(order.hasValidAddress == false)
         }
+        .onDisappear {
+            // Save order data when leaving the AddressView
+            order.saveToUserDefault()
+        }
     }
 }
 
 #Preview {
-    AddressView(order: Order())
+    AddressView()
 }

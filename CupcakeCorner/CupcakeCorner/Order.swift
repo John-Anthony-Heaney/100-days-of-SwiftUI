@@ -8,7 +8,7 @@
 import Foundation
 
 @Observable
-class Order: Codable {
+class Order: ObservableObject, Codable {
     enum CodingKeys: String, CodingKey {
         case _type = "type"
         case _quantity = "quantity"
@@ -73,4 +73,27 @@ class Order: Codable {
         return cost
     }
     
+    private static let userDefaultKey = "SavedOrder"
+    
+    func saveToUserDefault() {
+        do {
+            let data = try JSONEncoder().encode(self)
+            UserDefaults.standard.set(data, forKey: Self.userDefaultKey)
+        } catch {
+            print("Failed to save order to UserDefaults: \(error.localizedDescription)")
+        }
+    }
+    
+    static func loadFromUserDefault() -> Order {
+        guard let data = UserDefaults.standard.data(forKey: userDefaultKey) else {
+            return Order() // return an new instancce if no saved data exists
+        }
+        
+        do {
+            return try JSONDecoder().decode(Order.self, from: data)
+        } catch {
+            print("Failed to load order from UserDefaults: \(error.localizedDescription)")
+            return Order()
+        }
+    }
 }

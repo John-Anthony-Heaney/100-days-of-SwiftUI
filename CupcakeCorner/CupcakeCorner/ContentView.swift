@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct ContentView: View {
-   @State private var order = Order()
+   @State private var order = Order.loadFromUserDefault()
     
     var body: some View {
         NavigationStack {
@@ -38,11 +38,19 @@ struct ContentView: View {
                 
                 Section {
                     NavigationLink("Delivery details") {
-                        AddressView(order: order)
+                        AddressView()
                     }
                 }
             }
             .navigationTitle("Cupcake Corner")
+            .onAppear {
+                // Load the order from UserDefaults in case the app was closed
+                order = Order.loadFromUserDefault()
+            }
+            .onDisappear {
+                // Save the order to UserDefaults when the view disappears
+                order.saveToUserDefault()
+            }
         }
     }
 }
