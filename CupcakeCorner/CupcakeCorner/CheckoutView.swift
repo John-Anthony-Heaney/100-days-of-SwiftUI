@@ -45,6 +45,9 @@ struct CheckoutView: View {
         } message: {
             Text(confirmationMessage)
         }
+        .alert("failed to connect!", isPresented: Binding(get: { !showingConfirmation }, set: { showingConfirmation = !$0 })) {
+            Button("OK") { }
+        }
     }
     
     func placeOrder() async {
