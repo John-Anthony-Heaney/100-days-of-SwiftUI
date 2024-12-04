@@ -36,15 +36,31 @@
 		C3EEAD4B2D00E1D900437E3D /* EmojiRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiRatingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C3EEAD6C2D00E46A00437E3D /* Exceptions for "Bookworm" folder in "Bookworm" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				BookwormTests/BookwormTests.swift,
+			);
+			target = C3E113342CF74FFA0052EF37 /* Bookworm */;
+		};
+		C3EEAD6D2D00E46A00437E3D /* Exceptions for "Bookworm" folder in "BookwormTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				BookwormTests/BookwormTests.swift,
+			);
+			target = C3E113442CF74FFB0052EF37 /* BookwormTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C3E113372CF74FFA0052EF37 /* Bookworm */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C3EEAD6C2D00E46A00437E3D /* Exceptions for "Bookworm" folder in "Bookworm" target */,
+				C3EEAD6D2D00E46A00437E3D /* Exceptions for "Bookworm" folder in "BookwormTests" target */,
+			);
 			path = Bookworm;
-			sourceTree = "<group>";
-		};
-		C3E113482CF74FFB0052EF37 /* BookwormTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BookwormTests;
 			sourceTree = "<group>";
 		};
 		C3E113522CF74FFB0052EF37 /* BookwormUITests */ = {
@@ -85,7 +101,6 @@
 				C3EEAD4B2D00E1D900437E3D /* EmojiRatingView.swift */,
 				C3EEAD472D00DCB900437E3D /* RatingView.swift */,
 				C3E113372CF74FFA0052EF37 /* Bookworm */,
-				C3E113482CF74FFB0052EF37 /* BookwormTests */,
 				C3E113522CF74FFB0052EF37 /* BookwormUITests */,
 				C3E113362CF74FFA0052EF37 /* Products */,
 			);
@@ -138,9 +153,6 @@
 			);
 			dependencies = (
 				C3E113472CF74FFB0052EF37 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				C3E113482CF74FFB0052EF37 /* BookwormTests */,
 			);
 			name = BookwormTests;
 			packageProductDependencies = (
