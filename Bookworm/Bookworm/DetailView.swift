@@ -38,8 +38,19 @@ struct DetailView: View {
             Text(book.review)
                 .padding()
             
+            if let date = book.date {
+                Text(formattedDate(from: date))
+                    .padding()
+            } else {
+                Text("No date available")
+                    .padding()
+            }
+
+            
             RatingView(rating: .constant(book.rating))
                 .font(.largeTitle)
+            
+            
                 
         }
         .navigationTitle(book.title)
@@ -61,6 +72,13 @@ struct DetailView: View {
     func deleteBook() {
         modelContext.delete(book)
         dismiss()
+    }
+    
+    func formattedDate(from date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium // Use .short, .long, etc., as needed
+        formatter.timeStyle = .none // Use .short, .medium, etc., to include time if needed
+        return formatter.string(from: date)
     }
 }
 
